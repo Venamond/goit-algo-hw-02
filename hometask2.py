@@ -39,6 +39,7 @@ tests = [
     "aa"
 ]
 
+# Check each test string
 for t in tests:
     if is_palindrome(t):
         print(f"{t!r} -> \033[92mпаліндром\033[0m")
