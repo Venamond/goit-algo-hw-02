@@ -23,16 +23,20 @@ last_names = [
 def generate_phone():
     return "+380" + "".join(str(random.randint(0, 9)) for _ in range(9))
 
+# Types of client requests
 request_types = ["Консультація", "Скарга", "Запит", "Пропозиція"]
 
+# create a queue for processing requests
 queue = queue.Queue()
 
+# create a client class
 class Client:
     def __init__(self, first_name, last_name, phone_number):
         self.first_name = first_name
         self.last_name = last_name
         self.phone_number = phone_number
 
+# create a request class
 class Request:
     _id_counter = itertools.count(1)
     def __init__(self, client: Client, type: str):
@@ -42,7 +46,10 @@ class Request:
         self.id = next(Request._id_counter) # Unique ID for each request
 
 # Function to generate a new client request
-def generate_request():
+def generate_request() -> None:
+    '''
+    Generate a new client request.  
+    '''
     client = Client(
         first_name=random.choice(first_names),
         last_name=random.choice(last_names),
@@ -51,7 +58,10 @@ def generate_request():
     request = Request(client, random.choice(request_types))
     queue.put(request)
 
-def process_request():
+def process_request() -> None:
+    '''
+        Process a client request.
+    '''
     print(f"\033[91mЗаявок в черзі: {queue.qsize()}\033[0m")
     if not queue.empty():
         request = queue.get()
