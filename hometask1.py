@@ -73,8 +73,14 @@ def process_request():
 os.system("clear")
 
 print("\033[92mЗапуск системи обробки заявок клієнтів:\033[0m\n")
-for _ in range(5):
-    for _ in range(random.randint(1, 3)):
-        generate_request()
-    for _ in range(random.randint(1, 5)):
-        process_request()
+# generate initial requests, for stop processing press Ctrl+C
+try:
+    while True:
+        # Generate new requests
+        for _ in range(random.randint(1, 3)):
+            generate_request()
+        # Process existing requests
+        for _ in range(random.randint(1, 5)):
+            process_request()
+except KeyboardInterrupt:
+    print("\n❌\033[91mСистема обробки заявок зупинена користувачем.\033[0m")
